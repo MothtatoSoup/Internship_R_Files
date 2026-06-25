@@ -76,7 +76,7 @@ data[data$Salary < 500 & data$Runs > 100,]
 
  <!-- Can you identify any groups of similar batters? -->
 * Are players who spend longer in the league worth more?
-No. There is not a strong relationship between time spent in the league and salary earned.
+No because there is not a strong relationship between time spent in the league and salary earned.
 ```{r}
 years <- data$Years
 
@@ -114,7 +114,7 @@ If people where to use this report for hiring players for their team, the data a
 # clustering data :0
 library(cluster)
 library(factoextra)
-library(corrplot)
+
 
 
 #hierarchy cluster
@@ -135,10 +135,44 @@ fviz_cluster(kmeans.re, data = newData,
 main = "K-Means Clusters",
 xlab = "",
 ylab = "")
+```
 
+Correlations
+
+```{r}
 #mcorrelation plot
+library(corrplot)
 corrplot(cor(newData))
 ```
+```{r}
+#names, how often
+library(tidyverse)
+names <- data$rownames
+
+names <- strsplit(names,' ')
+names <- as.data.frame(names)
+first_names <- names[1,]
+
+name_searching <- ""
+name_count = 0
+i = 1
+j = 2
+
+first_names <- t(first_names)
+table(first_names)
+
+# Write Up (Things I noticed):
+# The most Common name in this roster is Mike, belonging to 14 people
+# Followed by Tony/Dave, belonging to 7 people
+# The fist most common name belongs to double the people with the second most common
+# BillyJo has a two name first name
+# Bip is an interesting thing (So is Oddibe, Kirby, Candy)
+# Time - 6, Steve - 6, Gary - 6, Bob - 6, Bill - 6
+# The distance between 3rd and 2nd is less than the distance between 1st and 2nd
+# I thought John would be the 1st most common name but I was wrong
+```
+
+
 
 $$\pi + 2$$
 
