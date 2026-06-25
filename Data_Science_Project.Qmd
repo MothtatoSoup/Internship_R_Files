@@ -155,8 +155,12 @@ first_names <- names[1,]
 
 first_names <- t(first_names)
 tfn <- table(first_names)
-view(tfn)
+# view(tfn)
 hist(tfn)
+plot(tfn)
+pie(tfn)
+barplot(tfn)
+plot(tfn, type="l")
 
 # Write Up (Things I noticed):
 # The most Common name in this roster is Mike, belonging to 14 people
