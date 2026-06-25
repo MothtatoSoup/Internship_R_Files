@@ -131,10 +131,15 @@ set.seed(240)
 kmeans.re <- kmeans(newData, centers = 3, nstart = 20)
 kmeans.re
 
+#view(newData[1:26,])
+
 fviz_cluster(kmeans.re, data = newData,
 main = "K-Means Clusters",
 xlab = "",
 ylab = "")
+# Group 3 is grouped by low years
+# Grooup 1 is grouped by high CHmrun
+# Group 2 by CHits??
 ```
 
 Correlations
