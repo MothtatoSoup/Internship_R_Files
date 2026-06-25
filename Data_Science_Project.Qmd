@@ -1,0 +1,182 @@
+---
+author: Joe Harrison, Maddy Puryear
+format: 
+  html:
+    embed-resources: true
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+title: Introduction to Data Science Project
+---
+
+The [main set of slides to reference](c) are created by Justin Post here at NC State
+
+
+Additionally, [here](https://www.statlearning.com/) is the bible for data science, and covers essentially all of the main Machine Learning methods.
+
+
+#### More resources:
+
+There are an overwhelming amount of resources. I link these only because I like them, and they provide an excellent jumping off point if you are interested. 
+
+
+*Note that reading without actually implementing a project or summarizing what you have read is not going to be very helpful* (even though it feels like it is). 
+
+> * https://r-graph-gallery.com/ <span style = "color:DarkSlateBlue;"> <- The go-to place for data visualization <span>
+> * https://happygitwithr.com/index.html <span style = "color:DarkSlateBlue;"> <- How does git work??? <span>
+> * https://arrow-user2022.netlify.app/ <span style = "color:DarkSlateBlue;"> <- How do I do stuff with large datasets? <span>
+> * https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet <span style = "color:DarkSlateBlue;"> <- Just a quick reference guide on markdown <span>
+
+Below are some other books:
+
+> * https://stat545.com/index.html <span style = "color:DarkSlateBlue;"><- Intro to R <span>
+> * https://r4ds.hadley.nz/ <span style = "color:DarkSlateBlue;"><- Intro to R <span>
+> * https://dtkaplan.github.io/DataComputingEbook/index.html#table-of-contents <span style = "color:DarkSlateBlue;"><- Intro to R <span>
+> * https://do4ds.com/chapters/intro.html <span style = "color:DarkSlateBlue;"><- DevOps for production code in data science <span>
+> * https://edwinth.github.io/ADSwR/index.html <span style = "color:DarkSlateBlue;"><- Agile philosophy <span>
+
+```{r}
+data <- read.csv(
+  "C:\\Users\\tmp00403\\Downloads\\Hitters.csv"
+)
+summary(data)
+```
+## Project Goal:
+By the end of this project, you should have a reproducable, visually appealing report.
+
+Questions to address in your report include: 
+
+* Are there any differences in the people who switch leagues?
+The people who switched leagues seem to have a higher rate of home runs over there career compared to those who didn't. This could also be because of the smaller number of data points we have or people who switched leagues compared to those who didn't.
+```{r}
+
+new_league <- as.factor(data$NewLeague)
+league <- as.factor(data$League)
+
+switched_league <- which(new_league != league)
+no_switch_league <- which(new_league == league)
+
+career_homerun <- data$CHmRun
+plot(switched_league, career_homerun[switched_league])
+plot(no_switch_league, career_homerun[no_switch_league])
+```
+
+* Are there specific hitters that over/under performed relative to their salary? 
+Mike Schmidt under preformed. He was being payed a bit over $2k however he was at the bat 20 times over the league and only hit one time. Meanwhile Kirby Puckett overpreformed, only being payed around $300, he had one of the highest number of hits out of everyone and preformed decent in the other areas as well
+```{r}
+library(dplyr)
+money <- data$Salary
+runs <- data$Runs
+
+plot(money,runs)
+data |> filter(Salary > 2000 & Runs < 20)
+# data[data$Salary > 2000 & data$Runs < 20,]
+# data |> filter(Salary < 500 & Runs > 100)
+data[data$Salary < 500 & data$Runs > 100,]
+```
+
+ <!-- Can you identify any groups of similar batters? -->
+* Are players who spend longer in the league worth more?
+No. There is not a strong relationship between time spent in the league and salary earned.
+```{r}
+years <- data$Years
+
+plot(money, years)
+abline(lm(years ~ money))
+```
+
+* Please explain in a paragraph any potential ethical issues that might arise from the creation of this report. 
+
+If people where to use this report for hiring players for their team, the data alone shows who over preforms and under preforms. This neglects  other soft skills like communication and teamwork. Someone who over preforms might be bad at working in a team and instead focuses on self-service, whereas someone who under preforms might be more team oriented, helping the members of their team. Focusing only on data and not taking into account un measurable things could lead to detriment towards your team, being less able to work with each other. Another issue that may arrive is using only people who have switched leagues, and not players that are currently in this league, because of the data found previously. This would lead in a disproportionate people within a league or tying to get into a league.
+
+
+
+### Stretch goals:
+* See if you can predict whether a player will be paid higher or lower than the median salary. 
+* Are there any questions that come to your mind that you think are worthwhile to explore? Investigate! Explore! 
+
+## Skills you will acquire along the way:
+
+::: {.bg-light .p-3 .border .rounded}
+* Understand the basics of manipulating data in R
+* Understand the basics of Statistical Inference
++ Gain experience grappling with randomness
+* Interpret multivariate regression output
+* Gain familiarity with common Machine Learning tools
+* Learn the basics of plotting within R
+:::
+
+
+
+## Start of project:
+
+```{r}
+a <- c(1, 2, 3)
+print(a)
+```
+
+$$\pi + 2$$
+
+<!-- If you want both R and python in the same document, then quarto will switch to the knitR renderer. Requires the reticulate package 
+install.packages("reticulate") -->
+```{python}
+b = [1, 2, 3]
+print(b)
+```
+
+
+Download the data from [here:](https://vincentarelbundock.github.io/Rdatasets/datasets.html)
+
+Alternatively, inspect element to find the web address.
+Search for the "Baseball Data"
+```{r}
+#| eval: false
+# data <- read.csv("path/to/your/downloaded/file.csv")
+
+#moved to report section
+```
+
+
+Functions that may be helpful in your analysis:
+
+::: {.bg-light .p-3 .border .rounded}
+
+* hclust()
+* pca()
+* lm(), glm(), glmnet()
+* kmeans()
+* t.test()
+* wilcox.test()
+
+:::
+
+And here is just an example of the neat things that R can do:
+```{r}
+#| eval: false
+# install.packages("tidyverse")
+library(tidyverse)
+
+# https://simplemaps.com/data/world-cities
+WorldCities <- read_csv("C:\\Users\\tmp00403\\Downloads\\simplemaps_worldcities_basicv1.91\\worldcities.csv")
+
+
+BigCities <-
+  WorldCities |>
+  arrange(desc(population)) |>
+  head(4000) |>
+  select(lng, lat)
+
+clusts2 <-
+  BigCities |>
+  kmeans(centers = 6) |>
+  fitted("classes") |>
+  as.character()
+
+BigCities <-
+  BigCities %>% mutate(cluster = clusts2)
+
+BigCities |>
+  ggplot(aes(x = lng, y = lat)) +
+  geom_point(aes(color = cluster, shape = cluster)) +
+  theme(legend.position = "top") + 
+  theme_bw()
+```
