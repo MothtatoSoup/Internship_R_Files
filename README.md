@@ -3,13 +3,22 @@ wip
 
 # What I Did/Learned
 
-## 6/24/26
-wip
+## June 24 2026
+#### Data Science
+We discussed Data Science and how it's just Stats.
+#### R (Coding Language)
+- Plotting
+- Reading from CSV
+- Graphs
+- Data Analysis
+#### Short Lecture on AI
 
-## 6/25/26
+## June 25 2026
 #### GIT/Github
+We learned about Github and set up GIT
 #### Clusters
 - K-Means Clusters
 - Hierarchal Clusters
 
-## 6/26/26
+## June 26 2026
+wip
