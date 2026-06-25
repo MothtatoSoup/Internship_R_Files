@@ -110,8 +110,30 @@ If people where to use this report for hiring players for their team, the data a
 ## Start of project:
 
 ```{r}
-a <- c(1, 2, 3)
-print(a)
+library(cluster)
+library(factoextra)
+# 6/25/26
+# clustering data :0
+
+#hierarchy cluster
+dist_df <- dist(na.omit(data$Salary))
+hc <- hclust(dist_df)
+plot(hc)
+
+#K means
+
+newData <- data[,c(2:14, 17, 18, 19)]
+# Factored columns (and salary) does not work because of non numbers
+
+set.seed(240)
+kmeans.re <- kmeans(newData, centers = 3, nstart = 20)
+kmeans.re
+
+fviz_cluster(kmeans.re, data = newData,
+main = "K-Means Clusters",
+xlab = "",
+ylab = "")
+
 ```
 
 $$\pi + 2$$
@@ -119,8 +141,9 @@ $$\pi + 2$$
 <!-- If you want both R and python in the same document, then quarto will switch to the knitR renderer. Requires the reticulate package 
 install.packages("reticulate") -->
 ```{python}
-b = [1, 2, 3]
-print(b)
+
+
+
 ```
 
 
