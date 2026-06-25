@@ -153,13 +153,10 @@ names <- strsplit(names,' ')
 names <- as.data.frame(names)
 first_names <- names[1,]
 
-name_searching <- ""
-name_count = 0
-i = 1
-j = 2
-
 first_names <- t(first_names)
-table(first_names)
+tfn <- table(first_names)
+view(tfn)
+hist(tfn)
 
 # Write Up (Things I noticed):
 # The most Common name in this roster is Mike, belonging to 14 people
@@ -170,6 +167,7 @@ table(first_names)
 # Time - 6, Steve - 6, Gary - 6, Bob - 6, Bill - 6
 # The distance between 3rd and 2nd is less than the distance between 1st and 2nd
 # I thought John would be the 1st most common name but I was wrong
+# Most names showed up 1 - 2 times
 ```
 
 
