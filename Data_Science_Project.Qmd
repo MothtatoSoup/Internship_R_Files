@@ -110,10 +110,12 @@ If people where to use this report for hiring players for their team, the data a
 ## Start of project:
 
 ```{r}
-library(cluster)
-library(factoextra)
 # 6/25/26
 # clustering data :0
+library(cluster)
+library(factoextra)
+library(corrplot)
+
 
 #hierarchy cluster
 dist_df <- dist(na.omit(data$Salary))
@@ -134,6 +136,8 @@ main = "K-Means Clusters",
 xlab = "",
 ylab = "")
 
+#mcorrelation plot
+corrplot(cor(newData))
 ```
 
 $$\pi + 2$$
