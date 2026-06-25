@@ -1,5 +1,15 @@
-Note: Make this pretty I forgo t how to do Markdown
+# Internship Overview
+wip
 
-What I Did/Learned:
+# What I Did/Learned
 
-Note: Fill this in by day and add any links and stuff
+## 6/24/26
+wip
+
+## 6/25/26
+#### GIT/Github
+#### Clusters
+- K-Means Clusters
+- Hierarchal Clusters
+
+## 6/26/26
