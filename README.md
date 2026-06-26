@@ -1,8 +1,3 @@
-# Internship Overview
-wip
-
-# What I Did/Learned
-
 ## June 24 2026
 #### Data Science
 We discussed Data Science and how it's just Stats.
@@ -26,4 +21,5 @@ We learned about Github and set up GIT
 - The most common name in that specific baseball league was 'Mike'
 
 ## June 26 2026
-wip
+**Finished Report**
+- Compiled all findings and wrote a report with Overleaf
