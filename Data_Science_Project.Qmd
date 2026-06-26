@@ -203,6 +203,59 @@ Search for the "Baseball Data"
 #moved to report section
 ```
 
+```{r}
+#Statistical tests
+
+#find P-value
+# testing difference in means (t-test)
+switched_money <- data$Salary[switched_league]
+no_switched_money <- data$Salary[no_switch_league]
+
+t.test(switched_money, no_switched_money)
+
+```
+
+```{r}
+library(caTools)
+library(class)
+library(ggplot2)
+
+set.seed(1)
+
+sample <- sample.split(newData$CHits, SplitRatio = 0.7)
+train_cl <- subset(newData, sample == TRUE)
+test_cl <- subset(newData, sample == FALSE)
+
+train_scale <- scale(train_cl[,1:4])
+test_scale <- scale(test_cl[,1:4])
+
+classifier_knn <- knn(train = train_scale, test = test_scale, cl = train_cl$CHits, k = 5)
+
+cm <- table(test_cl$CHits, classifier_knn) 
+cm
+
+k_values <- c(1, 3, 5, 7, 15, 19)
+
+accuracy_values <- sapply(k_values, function(k) {
+  classifier_knn <- knn(train = train_scale, 
+                        test = test_scale, 
+                        cl = train_cl$CHits, 
+                        k = k)
+  1 - mean(classifier_knn != test_cl$CHits)
+})
+
+accuracy_data <- data.frame(K = k_values, Accuracy = accuracy_values)
+
+ggplot(accuracy_data, aes(x = K, y = Accuracy)) +
+  geom_line(color = "lightblue", linewidth = 1) +
+  geom_point(color = "lightgreen") +
+  labs(title = "Model Accuracy for Different K Values",
+       x = "Number of Neighbors (K)",
+       y = "Accuracy") +
+  theme_minimal()
+
+```
+
 
 Functions that may be helpful in your analysis:
 
