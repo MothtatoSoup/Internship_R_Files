@@ -56,8 +56,8 @@ switched_league <- which(new_league != league)
 no_switch_league <- which(new_league == league)
 
 career_homerun <- data$CHmRun
-plot(switched_league, career_homerun[switched_league])
-plot(no_switch_league, career_homerun[no_switch_league])
+boxplot(career_homerun[switched_league])
+boxplot(career_homerun[no_switch_league])
 ```
 
 * Are there specific hitters that over/under performed relative to their salary? 
