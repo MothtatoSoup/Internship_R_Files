@@ -79,9 +79,17 @@ data[data$Salary < 500 & data$Runs > 100,]
 No because there is not a strong relationship between time spent in the league and salary earned.
 ```{r}
 years <- data$Years
+AtBat <- data$AtBat
 
-plot(money, years)
-abline(lm(years ~ money))
+summary(years)
+
+plot(years, money)
+abline(lm(money ~ years))
+
+plot(AtBat, money)
+abline(lm(money ~ AtBat))
+
+
 ```
 
 * Please explain in a paragraph any potential ethical issues that might arise from the creation of this report. 
@@ -222,37 +230,17 @@ library(ggplot2)
 
 set.seed(1)
 
-sample <- sample.split(newData$CHits, SplitRatio = 0.7)
-train_cl <- subset(newData, sample == TRUE)
-test_cl <- subset(newData, sample == FALSE)
+sample <- sample.split(data, SplitRatio = 0.7)
+train <- subset(data, sample == TRUE)
+test <- subset(data, sample == FALSE)
 
-train_scale <- scale(train_cl[,1:4])
-test_scale <- scale(test_cl[,1:4])
+a <- lm(Salary ~ Years, data = train)
+predicted_test_values <- coef(a)[1] + test$Years * coef(a)[2]
+sum((test$Years - predicted_test_values)^2)/length(predicted_test_values) # SSE
 
-classifier_knn <- knn(train = train_scale, test = test_scale, cl = train_cl$CHits, k = 5)
-
-cm <- table(test_cl$CHits, classifier_knn) 
-cm
-
-k_values <- c(1, 3, 5, 7, 15, 19)
-
-accuracy_values <- sapply(k_values, function(k) {
-  classifier_knn <- knn(train = train_scale, 
-                        test = test_scale, 
-                        cl = train_cl$CHits, 
-                        k = k)
-  1 - mean(classifier_knn != test_cl$CHits)
-})
-
-accuracy_data <- data.frame(K = k_values, Accuracy = accuracy_values)
-
-ggplot(accuracy_data, aes(x = K, y = Accuracy)) +
-  geom_line(color = "lightblue", linewidth = 1) +
-  geom_point(color = "lightgreen") +
-  labs(title = "Model Accuracy for Different K Values",
-       x = "Number of Neighbors (K)",
-       y = "Accuracy") +
-  theme_minimal()
+b <- lm(Salary ~ AtBat, data = train)
+predicted_test_values_b <- coef(b)[1] + test$Years * coef(b)[2]
+sum((test$Years - predicted_test_values_b)^2)/length(predicted_test_values_b) # SSE Lower SSE
 
 ```
 
